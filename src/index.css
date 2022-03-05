@@ -1,0 +1,14 @@
+body {
+  background-image: linear-gradient(
+    180deg,
+    #414141 0%,
+    #000000 50%,
+    #414141 100%
+  );
+  background-size: auto;
+  font-family: Helvetica, sans-serif;
+}
+
+pre {
+  margin: 0;
+}
