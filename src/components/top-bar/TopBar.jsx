@@ -12,7 +12,7 @@ function TopBar(props) {
   const largeScreen = useMediaQuery((theme) => theme?.breakpoints?.up("md"));
 
   return (
-    <AppBar position="sticky" color="primary" className={styles.TopBar}>
+    <AppBar position="sticky" color="success" className={styles.TopBar}>
       <Stack
         direction={largeScreen ? "row" : "column"}
         justifyContent="space-between"
@@ -22,14 +22,10 @@ function TopBar(props) {
           OCR and Text 2 Speech Demo
         </Typography>
         <ButtonGroup>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={props.onCapture}
-          >
+          <Button variant="contained" color="primary" onClick={props.onCapture}>
             Capture Text
           </Button>
-          <Button variant="contained" color="error" onClick={props.onReset}>
+          <Button variant="contained" color="secondary" onClick={props.onReset}>
             Reset
           </Button>
         </ButtonGroup>
