@@ -19,7 +19,7 @@ function TopBar(props) {
         alignItems="center"
       >
         <Typography component="h1" variant={largeScreen ? "h4" : "h6"}>
-          OCR and Text 2 Speech Demo
+          OCR Demo With React.js
         </Typography>
         <ButtonGroup>
           <Button variant="contained" color="primary" onClick={props.onCapture}>

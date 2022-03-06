@@ -6,7 +6,7 @@ describe("Video", () => {
     Object.defineProperty(HTMLMediaElement.prototype, "muted", {
       set: () => {},
     });
-    const wrapper = render(<Video />);
-    expect(wrapper.container.querySelector("video")).toBeInTheDocument();
+    const { container } = render(<Video />);
+    expect(container.querySelector("video")).toBeInTheDocument();
   });
 });

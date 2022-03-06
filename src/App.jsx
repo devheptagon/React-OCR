@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   CssBaseline,
   Container,
@@ -9,33 +9,32 @@ import {
 import TopBar from "./components/top-bar/TopBar";
 import Video from "./components/video/Video";
 import Output from "./components/output/Output";
-import img from "./eng_bw.png";
+import { initializeOCR, read } from "./utils";
 
 const NO_CONTENT_TEXT = "Nothing to display!";
 
 const App = () => {
   const theme = createTheme({});
   const [content, setContent] = useState(NO_CONTENT_TEXT);
-  const [canvas, setCanvas] = useState(null);
   const [ocr, setOcr] = useState(null);
   const [processing, setProcessing] = useState(false);
 
-  const onCanvasCreate = (newCanvas, newOcr) => {
-    if (!canvas) setCanvas(newCanvas);
-    if (!ocr) setOcr(newOcr);
-  };
+  useEffect(() => {
+    if (!ocr) {
+      initializeOCR().then((ocrInstance) => setOcr(ocrInstance));
+    }
+    return () => ocr?.terminate();
+  }, [ocr]);
 
   const onCapture = async () => {
-    if (!canvas || !ocr) {
+    if (!ocr) {
       return;
     }
+
     setProcessing(true);
-    //const video = document.querySelector("video");
-    //canvas.getContext("2d").drawImage(video, 0, 0, video.width, video.height);
-    const result = await ocr.recognize(img);
-    setProcessing(false);
+    const result = await read(ocr);
     setContent(result?.data?.text || NO_CONTENT_TEXT);
-    await ocr.terminate();
+    setProcessing(false);
   };
 
   const onReset = () => {
@@ -53,11 +52,7 @@ const App = () => {
             <Video />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Output
-              text={content}
-              onCanvasCreate={onCanvasCreate}
-              processing={processing}
-            />
+            <Output text={content} processing={processing} />
           </Grid>
         </Grid>
       </Container>

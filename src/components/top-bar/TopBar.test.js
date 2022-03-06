@@ -16,7 +16,7 @@ const setup = () => {
 describe("TopBar", () => {
   test("should display Title", () => {
     setup();
-    expect(screen.getByText("OCR and Text 2 Speech Demo")).toBeInTheDocument();
+    expect(screen.getByText("OCR Demo With React.js")).toBeInTheDocument();
   });
 
   test("should have Capture button", () => {
